@@ -1,0 +1,30 @@
+BEGIN {
+
+     col_drop=0
+     tot_drop=0
+     tot_recv=0
+ }
+
+{
+            event = $1
+            rsn=$21
+
+       if(event == "d")
+       {
+
+            if(rsn=="COL")
+           {
+                drop+=1
+           }
+           tot_drop+=1
+       }
+      if(event== "r")
+      {
+        tot_recv+=1
+      }
+}
+
+ END {
+       printf("\n\nno. of dropped pkts due to col are %f\nno of dropped pkts
+are %f\nno of pkts rcvd=%f\n",drop,tot_drop,tot_recv)
+ }
